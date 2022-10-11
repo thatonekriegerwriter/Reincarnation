@@ -16,6 +16,10 @@ class Reincarnation_UI
   end
   
   def pbStartScene
+	playingBGM = $game_system.playing_bgm
+	if playingBGM != ReincarnationConfig::CUSTOM_MUSIC
+    pbBGMPlay(ReincarnationConfig::CUSTOM_MUSIC)
+	end
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @selection=0
@@ -283,16 +287,13 @@ class Reincarnation_UI
 	
 #finishing
     pbFadeInAndShow(@sprites)
-	playingBGM = $game_system.playing_bgm
-	if playingBGM != ReincarnationConfig::CUSTOM_MUSIC
-    pbBGMPlay(ReincarnationConfig::CUSTOM_MUSIC)
 	end
   end
 
   def pbEndScene
     pbFadeOutAndHide(@icons)
-    pbDisposeSpriteHash(@icons)
     pbFadeOutAndHide(@sprites)
+    pbDisposeSpriteHash(@icons)
     pbDisposeSpriteHash(@sprites)
     @viewport.dispose
 		map_id = $game_map.map_id
@@ -602,6 +603,7 @@ class Reincarnation_UI
 		  if @reincarnpkmnsp == @donApkmnsp || @reincarnpkmnsp == @donBpkmnsp
               pbMessage(_INTL("{1} has already been chosen! Choose Another!", @reincarnpkmn))
 			  @reincarnpkmnsp = 0
+			  break
 		  else
 		  i = @reincarnpkmnsp.species_data 
 		  @sprites["icon_#{0}"] = PokemonSpeciesIconSprite.new(i.id,@viewport)
@@ -614,8 +616,8 @@ class Reincarnation_UI
 		  @sprites["icon_#{4}"].y = 15
           @sprites["icon_#{4}"].visible = true
 		  reincarnpokemonicon = @sprites["icon_#{4}"]
-		  $game_variables[3] = 0
-		  $game_variables[1] = 0
+		  $game_variables[3] = nil
+		  $game_variables[1] = nil
 			  break
 		  end
 		end
@@ -631,9 +633,10 @@ class Reincarnation_UI
 		  @donApkmn = $game_variables[3]
 		  if $game_variables[1] != -1
 		  @donApkmnsp = ($player.party[pbGet(1)])
-		  if @donApkmnsp == @reincarnpkmnsp|| @donApkmnsp == @donBpkmnsp
+		  if @donApkmnsp == @reincarnpkmnsp || @donApkmnsp == @donBpkmnsp
               pbMessage(_INTL("{1} has already been chosen! Choose Another!", @donApkmn))
 			  @donApkmnsp = 0
+			  break
 		  else
 		  i = @donApkmnsp.species_data
 		  @sprites["icon_#{1}"] = PokemonSpeciesIconSprite.new(i.id,@viewport)
@@ -646,8 +649,8 @@ class Reincarnation_UI
 		  @sprites["icon_#{5}"].y = 65
           @sprites["icon_#{5}"].visible = true
 		  donatorpokemonicon2 = @sprites["icon_#{5}"]
-		  $game_variables[3] = 0
-		  $game_variables[1] = 0
+		  $game_variables[3] = nil
+		  $game_variables[1] = nil
 			  break
 		  end
 		 end
@@ -666,6 +669,7 @@ class Reincarnation_UI
 		  if @donBpkmnsp == @donApkmnsp || @donBpkmnsp == @reincarnpkmnsp
               pbMessage(_INTL("{1} has already been chosen! Choose Another!", @donBpkmn))
 			  @donBpkmnsp = 0
+			  break
 		  else
 		  i = @donBpkmnsp.species_data
 		  @sprites["icon_#{2}"] = PokemonSpeciesIconSprite.new(i.id,@viewport)
@@ -678,8 +682,8 @@ class Reincarnation_UI
 		  @sprites["icon_#{6}"].y = 115
           @sprites["icon_#{6}"].visible = true
 		  donator2pokemonicon2 = @sprites["icon_#{6}"]
-		  $game_variables[3] = 0
-		  $game_variables[1] = 0
+		  $game_variables[3] = nil
+		  $game_variables[1] = nil
 			  break
 		  end
 		  end
@@ -1418,8 +1422,6 @@ filenamH =GameData::Item.icon_filename(@pkmniv)
     @icons["itemResult6"].visible=true
 end
        elsif @selection==7 && @inui == true
-          pbFadeOutIn(99999){
-	      @selection = 0
 		  @sprites["HPOld"].visible=false
         @sprites["ATKOld"].visible=false
         @sprites["DEFOld"].visible=false
@@ -1460,6 +1462,10 @@ end
     @sprites["ATKStar"].visible = false
     @sprites["HPStar"].visible = false
     @sprites["pokeview"].visible = false
+		if pbConfirmMessage(_INTL("Do you wish to quit?",@reincarnpkmnsp.name))
+		   break
+		else
+          pbFadeOutIn(99999){
     @sprites["F"].visible=true
     @sprites["E"].visible=true
     @sprites["D"].visible=true
@@ -1545,37 +1551,51 @@ end
 		  if @sprites["icon_#{5}"]!=nil
           @sprites["icon_#{5}"] = nil
 		  end
+	@reincarnpkmn=nil
+	@donApkmn=nil
+	@donBpkmn=nil
+	@pkmnnat1=nil
+	@pkmnnat2=nil
+	@pkmniv=nil
 	@sprites["A"].text=_INTL("Recipient",@reincarnpkmn)
     @sprites["B"].text=_INTL("Donor 1",@donApkmn)
     @sprites["C"].text=_INTL("Donor 2",@donBpkmn)
     @sprites["D"].text=_INTL("Stat Boon", @pkmnnat1)
     @sprites["E"].text=_INTL("Stat Bane",@pkmnnat2)
     @sprites["F"].text=_INTL("Stat Modifier",@pkmniv)
-	@inui = false
+	      @selection = 0
+			  @donBpkmnsp = 0
+			  @donApkmnsp = 0
+			  @reincarnpkmnsp = 0
+	
+		  $game_variables[3] = nil
+		  $game_variables[1] = nil
+	      @inui = false
 		}  
+		end
        end
       end
        #Cancel
       if Input.trigger?(Input::BACK)
+		if pbConfirmMessage(_INTL("Do you wish to quit?"))
         break
+		end
       end     
 	  if Input.trigger?(Input::SPECIAL)
 	  end
     end
-  end
   
+end
 def pbRefresh
 end
 
 
 
-end
 
 #Call Reincarnate.reincarnationWindow
 module Reincarnate
   def self.reincarnationWindow
 	pbBGMFade(1.0)
-	pbBGMStop
           pbFadeOutIn {
   reScene=Reincarnation_UI.new
   reScene.pbStartScene
