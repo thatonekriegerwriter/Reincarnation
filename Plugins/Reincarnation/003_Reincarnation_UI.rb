@@ -37,7 +37,7 @@ class Reincarnation_UI
     @sprites={}
     @icons={}
     @required=[]
-	@testing = false
+	@inui = false
     @sprites["background"]=IconSprite.new(0,0,@viewport)
     @sprites["background"].setBitmap(ReincarnationConfig::CUSTOM_BG)
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
@@ -348,7 +348,7 @@ class Reincarnation_UI
     @sprites["F"].text=_INTL("Stat Modifier",@pkmniv) if @pkmniv==0 ||  @pkmniv==-1  ||  @pkmniv==""  ||  @pkmniv==nil
 	  
       selectionNum=@selection
-      if Input.trigger?(Input::UP)
+      if Input.trigger?(Input::UP) && @inui == false
 	    if @selection==0 && @reincarnpkmn!=0
 		  pbSEPlay("GUI party switch")
           @sprites["reincarnatore"].visible = false
@@ -468,7 +468,7 @@ class Reincarnation_UI
           @selection-=1
         end
       end
-      if Input.trigger?(Input::DOWN)
+      if Input.trigger?(Input::DOWN) && @inui == false
         if @selection==0
 		  pbSEPlay("GUI party switch")
 		  @sprites["reincarnatore"].visible = false
@@ -718,6 +718,7 @@ filenamG =GameData::Item.icon_filename(@pkmnnat2)
 end
 		elsif @selection==6
 		if pbConfirmMessage(_INTL("{1} will become Level 1! Are you sure?",@reincarnpkmnsp.name))
+        @inui = true
 		@selection = 7
 		pbSEPlay("GUI naming confirm")
 		@sprites["D"].visible = false
@@ -1399,7 +1400,6 @@ end
     @sprites["DEFStar"].visible = true
     @sprites["ATKStar"].visible = true
     @sprites["HPStar"].visible = true
-	@testing = true
 		end
         elsif @selection==5
           pbFadeOutIn(99999){
@@ -1417,7 +1417,7 @@ filenamH =GameData::Item.icon_filename(@pkmniv)
     @icons["itemResult6"].setBitmap(filenamH)
     @icons["itemResult6"].visible=true
 end
-       elsif @selection==7 && @testing == true
+       elsif @selection==7 && @inui == true
           pbFadeOutIn(99999){
 	      @selection = 0
 		  @sprites["HPOld"].visible=false
@@ -1551,6 +1551,7 @@ end
     @sprites["D"].text=_INTL("Stat Boon", @pkmnnat1)
     @sprites["E"].text=_INTL("Stat Bane",@pkmnnat2)
     @sprites["F"].text=_INTL("Stat Modifier",@pkmniv)
+	@inui = false
 		}  
        end
       end
