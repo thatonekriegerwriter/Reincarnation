@@ -207,9 +207,8 @@ class Reincarnation
        if ReincarnationConfig::SET_TO_LEVEL !=nil
 	   pkmn.level = ReincarnationConfig::SET_TO_LEVEL
 	   end
-       if ReincarnationConfig::REVERT_EVOLUTION ==true  
+       if ReincarnationConfig::REVERT_EVOLUTION ==true
 	   pkmn.species = pkmn.species_data.get_baby_species
-	   end
 	   end
        if ReincarnationConfig::REVERT_MOVES ==true
 	   pkmn.reset_moves
@@ -217,12 +216,5 @@ class Reincarnation
        pkmn.iv = ivs
 	   pkmn.nature = reincarnatornature
 	   pkmn.calc_stats
-	   return pkmn
 	end
-
-
-
-
-
-	
-	end
+end
