@@ -208,10 +208,7 @@ class Reincarnation
 	   pkmn.level = ReincarnationConfig::SET_TO_LEVEL
 	   end
        if ReincarnationConfig::REVERT_EVOLUTION ==true  
-	   newpkmn = GameData::Species.try_get(pkmn.species)
-	   if newpkmn != GameData::Species.get(newpkmn).get_baby_species
-       baby = GameData::Species.get(newpkmn).get_baby_species
-	   pkmn.species = baby
+	   pkmn.species = pkmn.species_data.get_baby_species
 	   end
 	   end
        if ReincarnationConfig::REVERT_MOVES ==true
