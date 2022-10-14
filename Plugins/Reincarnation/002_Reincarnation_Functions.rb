@@ -84,18 +84,15 @@ class Reincarnation
   loop do
     freestats = []
     GameData::Stat.each_main { |s| freestats.push(s.id) if !ivinherit.include?(s.id) }
-          pbMessage(_INTL("{1}",freestats.length))
     break if freestats.length==0
     r = freestats[rand(freestats.length)]
 	if donator1==0
     parent = [donator2][rand(1)]
     ivs[r] = parent.iv[r]
-          pbMessage(_INTL("{1}",ivs[r]))
     ivinherit.push(r)
 	elsif donator2==0
     parent = [donator1][rand(1)]
     ivs[r] = parent.iv[r]
-          pbMessage(_INTL("{1}",ivs[r]))
     ivinherit.push(r)
 	elsif donator1==0 && donator2==0
 	else
