@@ -86,11 +86,11 @@ class Reincarnation
     GameData::Stat.each_main { |s| freestats.push(s.id) if !ivinherit.include?(s.id) }
     break if freestats.length==0
     r = freestats[rand(freestats.length)]
-	if donator1==0
+	if donator1==0 && donator2 !=0
     parent = [donator2][rand(1)]
     ivs[r] = parent.iv[r]
     ivinherit.push(r)
-	elsif donator2==0
+	elsif donator2==0 && donator1!=0
     parent = [donator1][rand(1)]
     ivs[r] = parent.iv[r]
     ivinherit.push(r)

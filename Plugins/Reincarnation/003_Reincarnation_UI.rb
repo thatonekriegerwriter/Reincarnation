@@ -1579,9 +1579,7 @@ else
 end
        elsif @selection==7 && @inui == true
 
-		if pbConfirmMessage(_INTL("Do you wish to quit?",@reincarnpkmnsp.name))
-		   break
-		else
+		if pbConfirmMessage(_INTL("Do you wish to continue?",@reincarnpkmnsp.name))
           pbFadeOutIn(99999){
 		  @sprites["itemResult5"].setBitmap("")
 @sprites["itemResult2"].setBitmap("")
@@ -1784,15 +1782,15 @@ end
 		  $game_variables[1] = nil
 	      @inui = false
 		}  
-		end
+		else
+		   break
+		   end
        end
       end
        #Cancel
       if Input.trigger?(Input::BACK)
-		if pbConfirmMessage(_INTL("Do you wish to quit?"))
-        break
-		else
-          pbFadeOutIn(99999){
+		if pbConfirmMessage(_INTL("Do you wish to continue?"))
+		          pbFadeOutIn(99999){
 	if ReincarnationConfig::REINCARNATION_HAS_COST == true
     @sprites["crystalamt"].visible=true
     @sprites["crystal"].visible=true
@@ -1950,6 +1948,9 @@ end
 		  $game_variables[1] = nil
 	      @inui = false
 		}  
+
+		else
+        break
 		end
       end     
 	  if Input.trigger?(Input::SPECIAL)
