@@ -301,6 +301,9 @@ class Reincarnation_UI
 	end
 #Viewport Stuff
 	
+    @sprites["itemResult6"]=IconSprite.new(121,179,@viewport)
+    @sprites["itemResult4"]=IconSprite.new(84,77,@viewport)
+    @sprites["itemResult5"]=IconSprite.new(158,78,@viewport)
 	
 	filenamPokeStat="Graphics/Pictures/Reincarnation/pokeview"
     @sprites["pokeview"]=IconSprite.new(0,120,@viewport)
@@ -424,20 +427,28 @@ end
     @sprites["B"].text=_INTL("{1}",@donApkmn)
     @sprites["C"].text=_INTL("{1}",@donBpkmn)
 	if @reincarnpkmnsp!=0
+	pkmn_data = GameData::Species.get_species_form(@reincarnpkmnsp.species, @reincarnpkmnsp.form)
     @sprites["A"].text=_INTL("{1} ♂",@reincarnpkmn) if @reincarnpkmnsp.male?
     @sprites["A"].text=_INTL("{1} ♀",@reincarnpkmn) if @reincarnpkmnsp.female?
+    @sprites["A"].text=_INTL("{1} ¹",@reincarnpkmn) if @reincarnpkmnsp.male? && pkmn_data.has_flag?("Puppet")
+    @sprites["A"].text=_INTL("{1} ²",@reincarnpkmn) if @reincarnpkmnsp.female? && pkmn_data.has_flag?("Puppet")
     @sprites["A"].text=_INTL("{1}",@reincarnpkmn) if @reincarnpkmnsp.genderless?
 	end
 	if @donApkmnsp!=0
+	pkmn_data = GameData::Species.get_species_form(@donApkmnsp.species, @donApkmnsp.form)
     @sprites["B"].text=_INTL("{1} ♂",@donApkmn) if @donApkmnsp.male?
     @sprites["B"].text=_INTL("{1} ♀",@donApkmn) if @donApkmnsp.female?
+    @sprites["B"].text=_INTL("{1} ¹",@donApkmn) if @donApkmnsp.male? && pkmn_data.has_flag?("Puppet")
+    @sprites["B"].text=_INTL("{1} ²",@donApkmn) if @donApkmnsp.female? && pkmn_data.has_flag?("Puppet")
     @sprites["B"].text=_INTL("{1} ",@donApkmn) if @donApkmnsp.genderless?
 	end
 	if @donBpkmnsp!=0
+	pkmn_data = GameData::Species.get_species_form(@donBpkmnsp.species, @donBpkmnsp.form)
     @sprites["C"].text=_INTL("{1} ♂",@donBpkmn) if @donBpkmnsp.male?
     @sprites["C"].text=_INTL("{1} ♀",@donBpkmn) if @donBpkmnsp.female?
+    @sprites["C"].text=_INTL("{1} ¹",@donBpkmn) if @donBpkmnsp.male? && pkmn_data.has_flag?("Puppet")
+    @sprites["C"].text=_INTL("{1} ²",@donBpkmn) if @donBpkmnsp.female? && pkmn_data.has_flag?("Puppet")
     @sprites["C"].text=_INTL("{1} ",@donBpkmn) if @donBpkmnsp.genderless?
-	end
 	 if @pkmnnat1!=0 &&  @pkmnnat1!=-1  && @pkmnnat1!="" &&  @pkmnnat1!=nil
     @sprites["D"].text=_INTL("{1}", GameData::Item.get(@pkmnnat1).name)
 	end
@@ -854,7 +865,6 @@ screen = PokemonBagScreen.new(scene,$PokemonBag)
 if @pkmnnat1 != nil
 item = @pkmnnat1
 filenamF =GameData::Item.icon_filename(@pkmnnat1) 
-    @sprites["itemResult4"]=IconSprite.new(84,77,@viewport)
     @sprites["itemResult4"].ox=0
     @sprites["itemResult4"].oy=0
     @sprites["itemResult4"].setBitmap(filenamF)
@@ -874,7 +884,6 @@ if @pkmnnat2 != nil
 item = @pkmnnat2
 filenamG =GameData::Item.icon_filename(@pkmnnat2) 
 @sprites["itemResult2"].setBitmap(filenamG)
-    @sprites["itemResult5"]=IconSprite.new(158,78,@viewport)
     @sprites["itemResult5"].ox=0
     @sprites["itemResult5"].oy=0
     @sprites["itemResult5"].setBitmap(filenamG)
@@ -1568,7 +1577,6 @@ if @pkmniv != nil
 item = @pkmniv
 filenamH =GameData::Item.icon_filename(@pkmniv) 
 @sprites["itemResult3"].setBitmap(filenamH)
-    @sprites["itemResult6"]=IconSprite.new(121,179,@viewport)
     @sprites["itemResult6"].ox=0
     @sprites["itemResult6"].oy=0
     @sprites["itemResult6"].setBitmap(filenamH)
