@@ -203,6 +203,18 @@ class Reincarnation_UI
 	else
 	filenamH ="Graphics/Items/000"
 	end
+    @sprites["HPStar"]=IconSprite.new(127,182,@viewport)
+    @sprites["ATKStar"]=IconSprite.new(127,214,@viewport)
+    @sprites["DEFStar"]=IconSprite.new(127,246,@viewport)
+    @sprites["SATKStar"]=IconSprite.new(127,277,@viewport)
+    @sprites["SDEFStar"]=IconSprite.new(127,310,@viewport)
+    @sprites["SPDStar"]=IconSprite.new(127,342,@viewport)
+    @sprites["HPStarNew"]=IconSprite.new(465,182,@viewport)
+    @sprites["ATKStarNew"]=IconSprite.new(465,214,@viewport)
+    @sprites["DEFStarNew"]=IconSprite.new(465,246,@viewport)
+    @sprites["SATKStarNew"]=IconSprite.new(465,277,@viewport)
+    @sprites["SDEFStarNew"]=IconSprite.new(465,310,@viewport)
+    @sprites["SPDStarNew"]=IconSprite.new(465,342,@viewport)
     @sprites["itemResult3"]=IconSprite.new(275,281,@viewport)
     @sprites["itemResult3"].setBitmap(filenamH)
     @sprites["itemResult3"].visible=false
@@ -449,6 +461,7 @@ end
     @sprites["C"].text=_INTL("{1} ¹",@donBpkmn) if @donBpkmnsp.male? && pkmn_data.has_flag?("Puppet")
     @sprites["C"].text=_INTL("{1} ²",@donBpkmn) if @donBpkmnsp.female? && pkmn_data.has_flag?("Puppet")
     @sprites["C"].text=_INTL("{1} ",@donBpkmn) if @donBpkmnsp.genderless?
+	end
 	 if @pkmnnat1!=0 &&  @pkmnnat1!=-1  && @pkmnnat1!="" &&  @pkmnnat1!=nil
     @sprites["D"].text=_INTL("{1}", GameData::Item.get(@pkmnnat1).name)
 	end
@@ -1225,7 +1238,6 @@ end
     @sprites["HPOldN"].viewport=@viewport
     @sprites["HPOldN"].windowskin=nil
     @sprites["HPOldN"].visible=false
-    @sprites["HPStar"]=IconSprite.new(127,182,@viewport)
       if @oldhpiv > 30
         @sprites["HPStar"].setBitmap(filenamRatingS)
       elsif @oldhpiv && @oldhpiv < 31
@@ -1251,7 +1263,6 @@ end
     @sprites["ATKOldN"].viewport=@viewport
     @sprites["ATKOldN"].windowskin=nil
     @sprites["ATKOldN"].visible=false
-    @sprites["ATKStar"]=IconSprite.new(127,214,@viewport)
       if @oldatkiv > 30
         @sprites["ATKStar"].setBitmap(filenamRatingS)
       elsif @oldatkiv > 22 && @oldatkiv < 31
@@ -1277,7 +1288,6 @@ end
     @sprites["DEFOldN"].viewport=@viewport
     @sprites["DEFOldN"].windowskin=nil
     @sprites["DEFOldN"].visible=false
-    @sprites["DEFStar"]=IconSprite.new(127,246,@viewport)
       if @olddefiv > 30
         @sprites["DEFStar"].setBitmap(filenamRatingS)
       elsif @olddefiv > 22 && @olddefiv < 31
@@ -1303,7 +1313,6 @@ end
     @sprites["SATKOldN"].viewport=@viewport
     @sprites["SATKOldN"].windowskin=nil
     @sprites["SATKOldN"].visible=false
-    @sprites["SATKStar"]=IconSprite.new(127,277,@viewport)
       if @oldsatkiv > 30
         @sprites["SATKStar"].setBitmap(filenamRatingS)
       elsif @oldsatkiv > 22 && @oldsatkiv < 31
@@ -1329,7 +1338,6 @@ end
     @sprites["SDEFOldN"].viewport=@viewport
     @sprites["SDEFOldN"].windowskin=nil
     @sprites["SDEFOldN"].visible=false
-    @sprites["SDEFStar"]=IconSprite.new(127,310,@viewport)
       if @oldsdefiv > 30
         @sprites["SDEFStar"].setBitmap(filenamRatingS)
       elsif @oldsdefiv > 22 && @oldsdefiv < 31
@@ -1355,7 +1363,6 @@ end
     @sprites["SPDOldN"].viewport=@viewport
     @sprites["SPDOldN"].windowskin=nil
     @sprites["SPDOldN"].visible=false
-    @sprites["SPDStar"]=IconSprite.new(127,342,@viewport)
       if @oldspdiv > 30
         @sprites["SPDStar"].setBitmap(filenamRatingS)
       elsif @oldspdiv > 22 && @oldspdiv < 31
@@ -1381,7 +1388,6 @@ end
     @sprites["HPNewN"].viewport=@viewport
     @sprites["HPNewN"].windowskin=nil
     @sprites["HPNewN"].visible=false
-    @sprites["HPStarNew"]=IconSprite.new(465,182,@viewport)
       if @newhpiv > 30
         @sprites["HPStarNew"].setBitmap(filenamRatingS)
       elsif @newhpiv > 22 && @newhpiv < 31
@@ -1408,7 +1414,6 @@ end
     @sprites["ATKNewN"].text=_INTL("{1}",@newatk,@newatkiv)
     @sprites["ATKNewN"].windowskin=nil
     @sprites["ATKNewN"].visible=false
-    @sprites["ATKStarNew"]=IconSprite.new(465,214,@viewport)
       if @newatkiv > 30
         @sprites["ATKStarNew"].setBitmap(filenamRatingS)
       elsif @newatkiv > 22 && @newatkiv < 31
@@ -1434,7 +1439,6 @@ end
     @sprites["DEFNewN"].viewport=@viewport
     @sprites["DEFNewN"].windowskin=nil
     @sprites["DEFNewN"].visible=false
-    @sprites["DEFStarNew"]=IconSprite.new(465,246,@viewport)
       if @newdefiv > 30
         @sprites["DEFStarNew"].setBitmap(filenamRatingS)
       elsif @newdefiv > 22 && @newdefiv < 31
@@ -1460,7 +1464,6 @@ end
     @sprites["SATKNewN"].viewport=@viewport
     @sprites["SATKNewN"].windowskin=nil
     @sprites["SATKNewN"].visible=false
-    @sprites["SATKStarNew"]=IconSprite.new(465,277,@viewport)
       if @newsatkiv > 30
         @sprites["SATKStarNew"].setBitmap(filenamRatingS)
       elsif @newsatkiv > 22 && @newsatkiv < 31
@@ -1486,7 +1489,6 @@ end
     @sprites["SDEFNewN"].viewport=@viewport
     @sprites["SDEFNewN"].windowskin=nil
     @sprites["SDEFNewN"].visible=false
-    @sprites["SDEFStarNew"]=IconSprite.new(465,310,@viewport)
       if @newsdefiv > 30
         @sprites["SDEFStarNew"].setBitmap(filenamRatingS)
       elsif @newsdefiv > 22 && @newsdefiv < 31
@@ -1512,7 +1514,6 @@ end
     @sprites["SPDNewN"].viewport=@viewport
     @sprites["SPDNewN"].windowskin=nil
     @sprites["SPDNewN"].visible=false
-    @sprites["SPDStarNew"]=IconSprite.new(465,342,@viewport)
       if @newspdiv > 30
         @sprites["SPDStarNew"].setBitmap(filenamRatingS)
       elsif @newspdiv > 22 && @newspdiv < 31
